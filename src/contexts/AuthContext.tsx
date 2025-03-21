@@ -1,4 +1,3 @@
-
 import React, { createContext, useContext, useState, useEffect } from 'react';
 import { User, UserRole, LoginCredentials, RegisterData } from '@/types';
 import { useToast } from '@/hooks/use-toast';
@@ -146,6 +145,12 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
       const updatedUser = { ...user, ...updatedData };
       setUser(updatedUser);
       localStorage.setItem('user', JSON.stringify(updatedUser));
+      
+      // Show success toast when the user is updated
+      toast({
+        title: 'Profile Updated',
+        description: 'Your profile has been successfully updated.',
+      });
     }
   };
 

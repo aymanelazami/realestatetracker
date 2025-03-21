@@ -32,9 +32,16 @@ const Header: React.FC = () => {
         { label: 'Admin', path: '/admin', icon: <Shield className="h-4 w-4 mr-1" /> },
       ]
     : [];
+    
+  // Agency-only links
+  const agencyLinks = isAuthenticated && user?.role === 'agency'
+    ? [
+        { label: 'My Profile', path: '/agency-profile', icon: <User className="h-4 w-4 mr-1" /> },
+      ]
+    : [];
 
   // Combine all relevant nav links
-  const navLinks = [...baseNavLinks, ...authNavLinks, ...adminNavLinks];
+  const navLinks = [...baseNavLinks, ...authNavLinks, ...adminNavLinks, ...agencyLinks];
 
   // Control header appearance on scroll
   useEffect(() => {
@@ -51,6 +58,11 @@ const Header: React.FC = () => {
   useEffect(() => {
     setIsMobileMenuOpen(false);
   }, [location.pathname]);
+
+  // Check if Add Agency button should be shown
+  // Only admin or non-agency users can add agencies
+  const showAddAgencyButton = isAuthenticated && 
+    (user?.role === 'admin' || user?.role === 'visitor');
 
   return (
     <header 
@@ -93,11 +105,11 @@ const Header: React.FC = () => {
           
           {isAuthenticated ? (
             <>
-              {user?.role === 'admin' || user?.role === 'agency' ? (
+              {showAddAgencyButton && (
                 <Button asChild variant="outline" className="ml-2">
                   <Link to="/add-agency">Add Agency</Link>
                 </Button>
-              ) : null}
+              )}
               <div className="ml-2">
                 <ProfileDropdown />
               </div>
@@ -151,11 +163,11 @@ const Header: React.FC = () => {
             
             {isAuthenticated ? (
               <>
-                {user?.role === 'admin' || user?.role === 'agency' ? (
+                {showAddAgencyButton && (
                   <Button asChild className="mt-2 w-full justify-center">
                     <Link to="/add-agency">Add Agency</Link>
                   </Button>
-                ) : null}
+                )}
                 <Button 
                   variant="outline" 
                   className="mt-2 w-full justify-center"
