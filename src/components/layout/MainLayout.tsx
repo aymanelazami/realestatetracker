@@ -22,13 +22,13 @@ const MainLayout: React.FC<MainLayoutProps> = ({
       <Header />
       <main 
         className={cn(
-          "flex-1 pt-20", 
-          !noPadding && "px-4 py-8 md:py-12", 
+          "flex-1 pt-16 sm:pt-20", 
+          !noPadding && "px-3 py-4 sm:px-4 sm:py-6 md:py-8 lg:py-12", 
           className
         )}
       >
         <div className={cn(
-          !fullWidth && "container mx-auto",
+          !fullWidth && "container mx-auto px-0 sm:px-4",
           "animate-fade-in"
         )}>
           {children}
