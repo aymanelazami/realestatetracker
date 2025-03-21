@@ -11,16 +11,19 @@ import { Agency } from '@/types';
 interface AgencyCardProps {
   agency: Agency;
   className?: string;
+  style?: React.CSSProperties;
 }
 
-const AgencyCard: React.FC<AgencyCardProps> = ({ agency, className }) => {
+const AgencyCard: React.FC<AgencyCardProps> = ({ agency, className, style }) => {
   return (
     <Card className={cn(
       "border overflow-hidden transition-all duration-300 h-full", 
       "hover:shadow-soft hover:border-primary/20",
       "backdrop-blur-sm",
       className
-    )}>
+    )}
+    style={style}
+    >
       <CardContent className="p-6 flex flex-col h-full">
         <div className="flex items-start justify-between gap-3 mb-4">
           <div className="flex-1 min-w-0">

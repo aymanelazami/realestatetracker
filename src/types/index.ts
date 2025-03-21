@@ -25,6 +25,12 @@ export interface Agency {
 
 export interface AgencyFormData extends Omit<Agency, 'id' | 'createdAt' | 'updatedAt'> {}
 
+export interface AgencyCardProps {
+  agency: Agency;
+  className?: string;
+  style?: React.CSSProperties;
+}
+
 export interface StatCardProps {
   title: string;
   value: string | number;
