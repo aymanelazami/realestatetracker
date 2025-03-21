@@ -1,4 +1,3 @@
-
 export interface Agency {
   id: string;
   name: string;
@@ -64,4 +63,34 @@ export interface SearchFilters {
   country?: string | null;
   city?: string | null;
   query?: string | null;
+}
+
+export type UserRole = 'admin' | 'agency' | 'visitor';
+
+export interface User {
+  id: string;
+  email: string;
+  name: string;
+  role: UserRole;
+  agencyId?: string;
+  createdAt: string;
+}
+
+export interface AuthState {
+  user: User | null;
+  isAuthenticated: boolean;
+  isLoading: boolean;
+}
+
+export interface LoginCredentials {
+  email: string;
+  password: string;
+}
+
+export interface RegisterData {
+  name: string;
+  email: string;
+  password: string;
+  confirmPassword: string;
+  role?: UserRole;
 }

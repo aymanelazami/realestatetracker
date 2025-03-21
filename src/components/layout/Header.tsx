@@ -1,21 +1,40 @@
 
 import React, { useState, useEffect } from 'react';
 import { Link, useLocation } from 'react-router-dom';
-import { Menu, X, Search, User, Building, Home } from 'lucide-react';
+import { Menu, X, Search, User, Building, Home, Shield } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { cn } from '@/lib/utils';
+import { useAuth } from '@/contexts/AuthContext';
+import ProfileDropdown from '@/components/auth/ProfileDropdown';
 
 const Header: React.FC = () => {
   const [isScrolled, setIsScrolled] = useState(false);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const location = useLocation();
+  const { isAuthenticated, user } = useAuth();
 
-  const navLinks = [
+  // Base nav links available to all users
+  const baseNavLinks = [
     { label: 'Home', path: '/', icon: <Home className="h-4 w-4 mr-1" /> },
-    { label: 'Dashboard', path: '/dashboard', icon: <Building className="h-4 w-4 mr-1" /> },
-    { label: 'Agencies', path: '/agencies', icon: <Search className="h-4 w-4 mr-1" /> },
-    { label: 'Admin', path: '/admin', icon: <User className="h-4 w-4 mr-1" /> },
   ];
+
+  // Additional nav links based on authentication status
+  const authNavLinks = isAuthenticated 
+    ? [
+        { label: 'Dashboard', path: '/dashboard', icon: <Building className="h-4 w-4 mr-1" /> },
+        { label: 'Agencies', path: '/agencies', icon: <Search className="h-4 w-4 mr-1" /> },
+      ]
+    : [];
+
+  // Admin-only links
+  const adminNavLinks = isAuthenticated && user?.role === 'admin'
+    ? [
+        { label: 'Admin', path: '/admin', icon: <Shield className="h-4 w-4 mr-1" /> },
+      ]
+    : [];
+
+  // Combine all relevant nav links
+  const navLinks = [...baseNavLinks, ...authNavLinks, ...adminNavLinks];
 
   // Control header appearance on scroll
   useEffect(() => {
@@ -71,9 +90,28 @@ const Header: React.FC = () => {
               {link.label}
             </Link>
           ))}
-          <Button asChild className="ml-2">
-            <Link to="/add-agency">Add Agency</Link>
-          </Button>
+          
+          {isAuthenticated ? (
+            <>
+              {user?.role === 'admin' || user?.role === 'agency' ? (
+                <Button asChild variant="outline" className="ml-2">
+                  <Link to="/add-agency">Add Agency</Link>
+                </Button>
+              ) : null}
+              <div className="ml-2">
+                <ProfileDropdown />
+              </div>
+            </>
+          ) : (
+            <>
+              <Button asChild variant="outline" className="ml-2">
+                <Link to="/login">Sign In</Link>
+              </Button>
+              <Button asChild className="ml-2">
+                <Link to="/register">Register</Link>
+              </Button>
+            </>
+          )}
         </nav>
 
         {/* Mobile Menu Toggle */}
@@ -110,9 +148,32 @@ const Header: React.FC = () => {
                 {link.label}
               </Link>
             ))}
-            <Button asChild className="mt-2 w-full justify-center">
-              <Link to="/add-agency">Add Agency</Link>
-            </Button>
+            
+            {isAuthenticated ? (
+              <>
+                {user?.role === 'admin' || user?.role === 'agency' ? (
+                  <Button asChild className="mt-2 w-full justify-center">
+                    <Link to="/add-agency">Add Agency</Link>
+                  </Button>
+                ) : null}
+                <Button 
+                  variant="outline" 
+                  className="mt-2 w-full justify-center"
+                  onClick={() => useAuth().logout()}
+                >
+                  Sign Out
+                </Button>
+              </>
+            ) : (
+              <>
+                <Button asChild variant="outline" className="mt-2 w-full justify-center">
+                  <Link to="/login">Sign In</Link>
+                </Button>
+                <Button asChild className="mt-2 w-full justify-center">
+                  <Link to="/register">Register</Link>
+                </Button>
+              </>
+            )}
           </nav>
         </div>
       )}
