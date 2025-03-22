@@ -17,15 +17,15 @@ const faqs = [
   },
   {
     question: 'How do I change my account password?',
-    answer: 'To change your password, go to the "Settings" page from your profile dropdown menu. Under the "Security" section, click on "Change Password" and follow the instructions. You'll need to enter your current password first for verification.'
+    answer: "To change your password, go to the \"Settings\" page from your profile dropdown menu. Under the \"Security\" section, click on \"Change Password\" and follow the instructions. You'll need to enter your current password first for verification."
   },
   {
     question: 'Can I have multiple agencies under one account?',
-    answer: 'Yes, if you're an admin user, you can manage multiple agencies under one account. Simply use the "Add Agency" function to create additional agency profiles. Each agency will have its own separate profile and management options.'
+    answer: "Yes, if you're an admin user, you can manage multiple agencies under one account. Simply use the \"Add Agency\" function to create additional agency profiles. Each agency will have its own separate profile and management options."
   },
   {
     question: 'How do I contact another agency through the platform?',
-    answer: 'You can contact another agency by visiting their agency detail page. There, you'll find contact information or a direct messaging option. Simply click on the "Contact" button and fill out the form to send them a message.'
+    answer: "You can contact another agency by visiting their agency detail page. There, you'll find contact information or a direct messaging option. Simply click on the \"Contact\" button and fill out the form to send them a message."
   },
   {
     question: 'Is there a limit to how many listings I can add?',
@@ -33,7 +33,7 @@ const faqs = [
   },
   {
     question: 'How can I delete my account?',
-    answer: 'To delete your account, go to the "Settings" page and scroll to the bottom. Under "Danger Zone", you'll find the option to delete your account. Note that this action is permanent and will remove all your data from our system.'
+    answer: "To delete your account, go to the \"Settings\" page and scroll to the bottom. Under \"Danger Zone\", you'll find the option to delete your account. Note that this action is permanent and will remove all your data from our system."
   }
 ];
 

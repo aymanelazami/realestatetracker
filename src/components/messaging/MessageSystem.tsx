@@ -1,4 +1,3 @@
-
 import React, { useState } from 'react';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from '@/components/ui/card';
@@ -36,7 +35,7 @@ const mockConversations = [
       {
         id: 'm3',
         senderId: 'agency1',
-        text: 'Yes, it's still available. Would you like to schedule a viewing?',
+        text: "Yes, it's still available. Would you like to schedule a viewing?",
         timestamp: new Date(Date.now() - 1000 * 60 * 30).toISOString(), // 30 minutes ago
       },
     ],
@@ -53,7 +52,7 @@ const mockConversations = [
       {
         id: 'm4',
         senderId: 'currentUser',
-        text: 'I'm interested in listing my property with your agency. What are your rates?',
+        text: "I'm interested in listing my property with your agency. What are your rates?",
         timestamp: new Date(Date.now() - 1000 * 60 * 60 * 24).toISOString(), // 1 day ago
       },
       {
