@@ -10,7 +10,7 @@ import {
 } from '@/components/ui/dropdown-menu';
 import { Avatar, AvatarFallback } from '@/components/ui/avatar';
 import { Button } from '@/components/ui/button';
-import { LogOut, Settings, User } from 'lucide-react';
+import { LogOut, Settings, User, Building, PenSquare } from 'lucide-react';
 import { useNavigate } from 'react-router-dom';
 
 const ProfileDropdown: React.FC = () => {
@@ -47,6 +47,20 @@ const ProfileDropdown: React.FC = () => {
           <User className="mr-2 h-4 w-4" />
           <span>Profile</span>
         </DropdownMenuItem>
+        {user.role === 'agency' && (
+          <>
+            <DropdownMenuItem onClick={() => navigate('/agency-profile')}>
+              <Building className="mr-2 h-4 w-4" />
+              <span>Agency Profile</span>
+            </DropdownMenuItem>
+            {user.agencyId && (
+              <DropdownMenuItem onClick={() => navigate(`/edit-agency/${user.agencyId}`)}>
+                <PenSquare className="mr-2 h-4 w-4" />
+                <span>Edit Agency</span>
+              </DropdownMenuItem>
+            )}
+          </>
+        )}
         <DropdownMenuItem onClick={() => navigate('/settings')}>
           <Settings className="mr-2 h-4 w-4" />
           <span>Settings</span>

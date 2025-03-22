@@ -14,9 +14,14 @@ import Register from "./pages/Register";
 import Dashboard from "./pages/Dashboard";
 import Agencies from "./pages/Agencies";
 import AgencyDetail from "./pages/AgencyDetail";
+import AgencyProfile from "./pages/AgencyProfile";
 import AddAgency from "./pages/AddAgency";
 import Admin from "./pages/Admin";
 import NotFound from "./pages/NotFound";
+import EditAgency from "./pages/EditAgency";
+import Profile from "./pages/Profile";
+import Settings from "./pages/Settings";
+import ManageCategories from "./pages/ManageCategories";
 
 const queryClient = new QueryClient();
 
@@ -56,10 +61,50 @@ const App = () => (
               } 
             />
             <Route 
+              path="/agency-profile" 
+              element={
+                <ProtectedRoute allowedRoles={['agency']}>
+                  <AgencyProfile />
+                </ProtectedRoute>
+              } 
+            />
+            <Route 
               path="/add-agency" 
               element={
                 <ProtectedRoute allowedRoles={['admin', 'agency']}>
                   <AddAgency />
+                </ProtectedRoute>
+              } 
+            />
+            <Route 
+              path="/edit-agency/:id" 
+              element={
+                <ProtectedRoute allowedRoles={['admin', 'agency']}>
+                  <EditAgency />
+                </ProtectedRoute>
+              } 
+            />
+            <Route 
+              path="/profile" 
+              element={
+                <ProtectedRoute>
+                  <Profile />
+                </ProtectedRoute>
+              } 
+            />
+            <Route 
+              path="/settings" 
+              element={
+                <ProtectedRoute>
+                  <Settings />
+                </ProtectedRoute>
+              } 
+            />
+            <Route 
+              path="/manage-categories" 
+              element={
+                <ProtectedRoute allowedRoles={['admin']}>
+                  <ManageCategories />
                 </ProtectedRoute>
               } 
             />

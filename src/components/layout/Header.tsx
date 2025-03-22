@@ -1,7 +1,7 @@
 
 import React, { useState, useEffect } from 'react';
 import { Link, useLocation } from 'react-router-dom';
-import { Menu, X, Search, User, Building, Home, Shield } from 'lucide-react';
+import { Menu, X, Search, User, Building, Home, Shield, Settings, Tag } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { cn } from '@/lib/utils';
 import { useAuth } from '@/contexts/AuthContext';
@@ -30,6 +30,7 @@ const Header: React.FC = () => {
   const adminNavLinks = isAuthenticated && user?.role === 'admin'
     ? [
         { label: 'Admin', path: '/admin', icon: <Shield className="h-4 w-4 mr-1" /> },
+        { label: 'Manage Categories', path: '/manage-categories', icon: <Tag className="h-4 w-4 mr-1" /> },
       ]
     : [];
     
