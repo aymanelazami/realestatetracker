@@ -1,7 +1,7 @@
 
 import React, { useState, useEffect } from 'react';
 import { Link, useLocation } from 'react-router-dom';
-import { Menu, X, Search, User, Building, Home, Shield, Settings, Tag } from 'lucide-react';
+import { Menu, X, Search, User, Building, Home, Shield, Settings, Tag, MessageSquare, HelpCircle } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { cn } from '@/lib/utils';
 import { useAuth } from '@/contexts/AuthContext';
@@ -16,6 +16,7 @@ const Header: React.FC = () => {
   // Base nav links available to all users
   const baseNavLinks = [
     { label: 'Home', path: '/', icon: <Home className="h-4 w-4 mr-1" /> },
+    { label: 'Support', path: '/support', icon: <HelpCircle className="h-4 w-4 mr-1" /> },
   ];
 
   // Additional nav links based on authentication status
@@ -23,6 +24,7 @@ const Header: React.FC = () => {
     ? [
         { label: 'Dashboard', path: '/dashboard', icon: <Building className="h-4 w-4 mr-1" /> },
         { label: 'Agencies', path: '/agencies', icon: <Search className="h-4 w-4 mr-1" /> },
+        { label: 'Messages', path: '/messages', icon: <MessageSquare className="h-4 w-4 mr-1" /> },
       ]
     : [];
 

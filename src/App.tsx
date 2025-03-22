@@ -1,3 +1,4 @@
+
 import { Toaster } from "@/components/ui/toaster";
 import { Toaster as Sonner } from "@/components/ui/sonner";
 import { TooltipProvider } from "@/components/ui/tooltip";
@@ -22,6 +23,8 @@ import EditAgency from "./pages/EditAgency";
 import Profile from "./pages/Profile";
 import Settings from "./pages/Settings";
 import ManageCategories from "./pages/ManageCategories";
+import Support from "./pages/Support";
+import Messages from "./pages/Messages";
 
 const queryClient = new QueryClient();
 
@@ -98,6 +101,18 @@ const App = () => (
                 element={
                   <ProtectedRoute>
                     <Settings />
+                  </ProtectedRoute>
+                } 
+              />
+              <Route 
+                path="/support" 
+                element={<Support />} 
+              />
+              <Route 
+                path="/messages" 
+                element={
+                  <ProtectedRoute>
+                    <Messages />
                   </ProtectedRoute>
                 } 
               />
