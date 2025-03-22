@@ -25,6 +25,7 @@ import Settings from "./pages/Settings";
 import ManageCategories from "./pages/ManageCategories";
 import Support from "./pages/Support";
 import Messages from "./pages/Messages";
+import AddProperty from "./pages/AddProperty";
 
 const queryClient = new QueryClient();
 
@@ -77,6 +78,14 @@ const App = () => (
                 element={
                   <ProtectedRoute allowedRoles={['admin', 'agency']}>
                     <AddAgency />
+                  </ProtectedRoute>
+                } 
+              />
+              <Route 
+                path="/add-property" 
+                element={
+                  <ProtectedRoute allowedRoles={['admin', 'agency']}>
+                    <AddProperty />
                   </ProtectedRoute>
                 } 
               />
