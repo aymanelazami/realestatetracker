@@ -1,14 +1,13 @@
-
 import React from 'react';
 import { Link } from 'react-router-dom';
 import { Building, Mail, Phone, MapPin, Facebook, Instagram, Twitter } from 'lucide-react';
-
 const Footer: React.FC = () => {
-  return (
-    <footer className="w-full bg-secondary/50 backdrop-blur-sm border-t border-border py-12 mt-12">
+  return <footer className="w-full bg-secondary/50 backdrop-blur-sm border-t border-border py-12 mt-12">
       <div className="container mx-auto px-4">
         <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-          <div className="space-y-4 animate-fade-in" style={{ animationDelay: '0ms' }}>
+          <div className="space-y-4 animate-fade-in" style={{
+          animationDelay: '0ms'
+        }}>
             <div className="flex items-center gap-2">
               <Building className="h-6 w-6 text-primary" />
               <span className="text-xl font-semibold">RealEstate Hub</span>
@@ -29,14 +28,16 @@ const Footer: React.FC = () => {
             </div>
           </div>
 
-          <div className="space-y-4 animate-fade-in" style={{ animationDelay: '100ms' }}>
+          <div className="space-y-4 animate-fade-in" style={{
+          animationDelay: '100ms'
+        }}>
             <h3 className="text-lg font-semibold">Quick Links</h3>
             <ul className="space-y-2">
               <li>
                 <Link to="/" className="text-muted-foreground hover:text-primary transition-colors">Home</Link>
               </li>
               <li>
-                <Link to="/dashboard" className="text-muted-foreground hover:text-primary transition-colors">Dashboard</Link>
+                
               </li>
               <li>
                 <Link to="/agencies" className="text-muted-foreground hover:text-primary transition-colors">Agencies</Link>
@@ -50,7 +51,9 @@ const Footer: React.FC = () => {
             </ul>
           </div>
 
-          <div className="space-y-4 animate-fade-in" style={{ animationDelay: '200ms' }}>
+          <div className="space-y-4 animate-fade-in" style={{
+          animationDelay: '200ms'
+        }}>
             <h3 className="text-lg font-semibold">Contact</h3>
             <ul className="space-y-3">
               <li className="flex items-center gap-2 text-muted-foreground">
@@ -77,8 +80,6 @@ const Footer: React.FC = () => {
           <p>© {new Date().getFullYear()} RealEstate Hub. All rights reserved.</p>
         </div>
       </div>
-    </footer>
-  );
+    </footer>;
 };
-
 export default Footer;
