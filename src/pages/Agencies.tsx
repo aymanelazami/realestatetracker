@@ -1,3 +1,4 @@
+
 import React, { useState, useEffect } from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
 import MainLayout from '@/components/layout/MainLayout';
@@ -370,16 +371,16 @@ const Agencies = () => {
                   <div className="space-y-2">
                     <label className="text-sm font-medium">Category</label>
                     <Select
-                      value={filters.category || ''}
+                      value={filters.category || 'all-categories'}
                       onValueChange={(value) => 
-                        setFilters({ ...filters, category: value as AgencyCategory || null })
+                        setFilters({ ...filters, category: value === 'all-categories' ? null : value as AgencyCategory })
                       }
                     >
                       <SelectTrigger>
                         <SelectValue placeholder="Select a category" />
                       </SelectTrigger>
                       <SelectContent>
-                        <SelectItem value="">All Categories</SelectItem>
+                        <SelectItem value="all-categories">All Categories</SelectItem>
                         {CATEGORIES.map((category) => (
                           <SelectItem key={category} value={category}>
                             {category}
@@ -392,16 +393,16 @@ const Agencies = () => {
                   <div className="space-y-2">
                     <label className="text-sm font-medium">Country</label>
                     <Select
-                      value={filters.country || ''}
+                      value={filters.country || 'all-countries'}
                       onValueChange={(value) => 
-                        setFilters({ ...filters, country: value || null })
+                        setFilters({ ...filters, country: value === 'all-countries' ? null : value })
                       }
                     >
                       <SelectTrigger>
                         <SelectValue placeholder="Select a country" />
                       </SelectTrigger>
                       <SelectContent>
-                        <SelectItem value="">All Countries</SelectItem>
+                        <SelectItem value="all-countries">All Countries</SelectItem>
                         {COUNTRIES.map((country) => (
                           <SelectItem key={country} value={country}>
                             {country}
