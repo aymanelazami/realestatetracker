@@ -34,7 +34,7 @@ import {
   AlertDialogTrigger,
 } from '@/components/ui/alert-dialog';
 import { toast } from 'sonner';
-import { Agency } from '@/types';
+import { Agency, SubscriptionPlan, SubscriptionStatus } from '@/types';
 import { cn } from '@/lib/utils';
 
 // Mock agencies data (same as in Agencies.tsx)
@@ -56,6 +56,9 @@ const mockAgencies: Agency[] = [
       facebook: 'https://facebook.com/skylineproperties',
       instagram: 'https://instagram.com/skylineproperties',
     },
+    subscriptionPlan: 'Premium',
+    subscriptionStatus: 'Active',
+    propertyLimit: 50,
     createdAt: '2023-08-15T14:23:45Z',
     updatedAt: '2023-08-15T14:23:45Z',
   },
@@ -76,6 +79,9 @@ const mockAgencies: Agency[] = [
       instagram: 'https://instagram.com/cityliving',
       linkedin: 'https://linkedin.com/company/cityliving',
     },
+    subscriptionPlan: 'Standard',
+    subscriptionStatus: 'Active',
+    propertyLimit: 25,
     createdAt: '2023-08-12T09:15:22Z',
     updatedAt: '2023-08-12T09:15:22Z',
   },
@@ -94,6 +100,9 @@ const mockAgencies: Agency[] = [
       linkedin: 'https://linkedin.com/company/globalinvestments',
       twitter: 'https://twitter.com/globalinvestments',
     },
+    subscriptionPlan: 'Premium',
+    subscriptionStatus: 'Active',
+    propertyLimit: 50,
     createdAt: '2023-08-10T16:42:10Z',
     updatedAt: '2023-08-10T16:42:10Z',
   },
@@ -114,6 +123,9 @@ const mockAgencies: Agency[] = [
       instagram: 'https://instagram.com/premiumproperties',
       facebook: 'https://facebook.com/premiumproperties',
     },
+    subscriptionPlan: 'Premium',
+    subscriptionStatus: 'Active',
+    propertyLimit: 50,
     createdAt: '2023-08-08T11:30:00Z',
     updatedAt: '2023-08-08T11:30:00Z',
   },
@@ -131,6 +143,9 @@ const mockAgencies: Agency[] = [
     country: 'United States',
     category: ['Industrial', 'Commercial'],
     socialMedia: {},
+    subscriptionPlan: 'Basic',
+    subscriptionStatus: 'Active',
+    propertyLimit: 10,
     createdAt: '2023-08-05T13:45:30Z',
     updatedAt: '2023-08-05T13:45:30Z',
   },
@@ -150,6 +165,9 @@ const mockAgencies: Agency[] = [
     socialMedia: {
       linkedin: 'https://linkedin.com/company/landdevelopment',
     },
+    subscriptionPlan: 'Standard',
+    subscriptionStatus: 'Active',
+    propertyLimit: 25,
     createdAt: '2023-08-03T10:20:15Z',
     updatedAt: '2023-08-03T10:20:15Z',
   },
