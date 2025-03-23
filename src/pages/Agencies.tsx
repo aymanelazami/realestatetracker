@@ -1,164 +1,14 @@
-
 import React, { useState, useEffect } from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
 import MainLayout from '@/components/layout/MainLayout';
-import AgencyCard from '@/components/agencies/AgencyCard';
 import SearchInput from '@/components/ui/SearchInput';
 import { Button } from '@/components/ui/button';
-import { Plus, Filter, Check, X } from 'lucide-react';
-import {
-  Select,
-  SelectContent,
-  SelectItem,
-  SelectTrigger,
-  SelectValue,
-} from '@/components/ui/select';
-import {
-  Sheet,
-  SheetContent,
-  SheetDescription,
-  SheetHeader,
-  SheetTitle,
-  SheetTrigger,
-  SheetFooter,
-} from '@/components/ui/sheet';
-import { Agency, AgencyCategory, SearchFilters, SubscriptionPlan, SubscriptionStatus } from '@/types';
-
-// Mock agencies data
-const mockAgencies: Agency[] = [
-  {
-    id: '1',
-    name: 'Skyline Properties',
-    description: 'A leading residential and commercial real estate agency with over 20 years of experience in the market.',
-    website: 'https://skylineproperties.com',
-    email: 'info@skylineproperties.com',
-    phone: '+1 (555) 123-4567',
-    address: '123 Main Street',
-    city: 'New York',
-    state: 'NY',
-    zipCode: '10001',
-    country: 'United States',
-    category: ['Residential', 'Commercial'],
-    socialMedia: {
-      facebook: 'https://facebook.com/skylineproperties',
-      instagram: 'https://instagram.com/skylineproperties',
-    },
-    subscriptionPlan: 'Premium',
-    subscriptionStatus: 'Active',
-    propertyLimit: 50,
-    createdAt: '2023-08-15T14:23:45Z',
-    updatedAt: '2023-08-15T14:23:45Z',
-  },
-  {
-    id: '2',
-    name: 'City Living Real Estate',
-    description: 'Specialized in urban properties and luxury apartments in metropolitan areas.',
-    website: 'https://cityliving.com',
-    email: 'contact@cityliving.com',
-    phone: '+1 (555) 987-6543',
-    address: '456 Urban Avenue',
-    city: 'Toronto',
-    state: 'ON',
-    zipCode: 'M5V 2A8',
-    country: 'Canada',
-    category: ['Residential', 'Luxury'],
-    socialMedia: {
-      instagram: 'https://instagram.com/cityliving',
-      linkedin: 'https://linkedin.com/company/cityliving',
-    },
-    subscriptionPlan: 'Standard',
-    subscriptionStatus: 'Active',
-    propertyLimit: 25,
-    createdAt: '2023-08-12T09:15:22Z',
-    updatedAt: '2023-08-12T09:15:22Z',
-  },
-  {
-    id: '3',
-    name: 'Global Investments',
-    description: 'International real estate investment firm focusing on commercial properties and development opportunities.',
-    website: 'https://globalinvest.com',
-    email: 'investors@globalinvest.com',
-    phone: '+44 20 1234 5678',
-    address: '10 Financial Square',
-    city: 'London',
-    country: 'United Kingdom',
-    category: ['Investment', 'Commercial', 'International'],
-    socialMedia: {
-      linkedin: 'https://linkedin.com/company/globalinvestments',
-      twitter: 'https://twitter.com/globalinvestments',
-    },
-    subscriptionPlan: 'Premium',
-    subscriptionStatus: 'Active',
-    propertyLimit: 50,
-    createdAt: '2023-08-10T16:42:10Z',
-    updatedAt: '2023-08-10T16:42:10Z',
-  },
-  {
-    id: '4',
-    name: 'Premium Properties',
-    description: 'Luxury real estate specialists with a portfolio of exclusive properties in prime locations.',
-    website: 'https://premiumproperties.com.au',
-    email: 'hello@premiumproperties.com.au',
-    phone: '+61 2 9876 5432',
-    address: '25 Harbor View',
-    city: 'Sydney',
-    state: 'NSW',
-    zipCode: '2000',
-    country: 'Australia',
-    category: ['Luxury', 'Residential'],
-    socialMedia: {
-      instagram: 'https://instagram.com/premiumproperties',
-      facebook: 'https://facebook.com/premiumproperties',
-    },
-    subscriptionPlan: 'Premium',
-    subscriptionStatus: 'Active',
-    propertyLimit: 50,
-    createdAt: '2023-08-08T11:30:00Z',
-    updatedAt: '2023-08-08T11:30:00Z',
-  },
-  {
-    id: '5',
-    name: 'Industrial Spaces',
-    description: 'Specialized in industrial real estate, warehouses, and manufacturing facilities.',
-    website: 'https://industrialspaces.net',
-    email: 'info@industrialspaces.net',
-    phone: '+1 (555) 234-5678',
-    address: '789 Factory Road',
-    city: 'Chicago',
-    state: 'IL',
-    zipCode: '60607',
-    country: 'United States',
-    category: ['Industrial', 'Commercial'],
-    socialMedia: {},
-    subscriptionPlan: 'Basic',
-    subscriptionStatus: 'Active',
-    propertyLimit: 10,
-    createdAt: '2023-08-05T13:45:30Z',
-    updatedAt: '2023-08-05T13:45:30Z',
-  },
-  {
-    id: '6',
-    name: 'Land Development Co.',
-    description: 'Specialists in land acquisition and development for residential and commercial projects.',
-    website: 'https://landdevelopment.co',
-    email: 'projects@landdevelopment.co',
-    phone: '+1 (555) 876-5432',
-    address: '567 Opportunity Drive',
-    city: 'Phoenix',
-    state: 'AZ',
-    zipCode: '85001',
-    country: 'United States',
-    category: ['Land', 'Investment'],
-    socialMedia: {
-      linkedin: 'https://linkedin.com/company/landdevelopment',
-    },
-    subscriptionPlan: 'Standard',
-    subscriptionStatus: 'Active',
-    propertyLimit: 25,
-    createdAt: '2023-08-03T10:20:15Z',
-    updatedAt: '2023-08-03T10:20:15Z',
-  },
-];
+import { Plus } from 'lucide-react';
+import { AgencyCategory, SearchFilters } from '@/types';
+import { mockAgencies } from '@/data/mockAgencies';
+import AgencyFilterSheet from '@/components/agencies/AgencyFilterSheet';
+import ActiveFilters from '@/components/agencies/ActiveFilters';
+import AgencyList from '@/components/agencies/AgencyList';
 
 // Category options
 const CATEGORIES: AgencyCategory[] = [
@@ -178,8 +28,8 @@ const COUNTRIES = ['United States', 'Canada', 'United Kingdom', 'Australia'];
 const Agencies = () => {
   const location = useLocation();
   const navigate = useNavigate();
-  const [agencies, setAgencies] = useState<Agency[]>([]);
-  const [filteredAgencies, setFilteredAgencies] = useState<Agency[]>([]);
+  const [agencies, setAgencies] = useState([]);
+  const [filteredAgencies, setFilteredAgencies] = useState([]);
   const [searchQuery, setSearchQuery] = useState('');
   const [filters, setFilters] = useState<SearchFilters>({
     category: null,
@@ -309,33 +159,6 @@ const Agencies = () => {
     });
   };
 
-  // Generate filter chips
-  const filterChips = () => {
-    const chips = [];
-    
-    if (filters.category) {
-      chips.push({
-        label: `Category: ${filters.category}`,
-        onRemove: () => {
-          const newFilters = { ...filters, category: null };
-          applyFilters(newFilters);
-        }
-      });
-    }
-    
-    if (filters.country) {
-      chips.push({
-        label: `Country: ${filters.country}`,
-        onRemove: () => {
-          const newFilters = { ...filters, country: null };
-          applyFilters(newFilters);
-        }
-      });
-    }
-    
-    return chips;
-  };
-
   return (
     <MainLayout>
       <div className="flex flex-col space-y-8">
@@ -365,156 +188,30 @@ const Agencies = () => {
               />
             </div>
             
-            <Sheet>
-              <SheetTrigger asChild>
-                <Button variant="outline" className="flex items-center gap-2 h-auto py-2.5">
-                  <Filter className="h-4 w-4" />
-                  Filter
-                  {(filters.category || filters.country) && (
-                    <span className="ml-1 bg-primary text-primary-foreground text-xs rounded-full w-5 h-5 flex items-center justify-center">
-                      {(filters.category ? 1 : 0) + (filters.country ? 1 : 0)}
-                    </span>
-                  )}
-                </Button>
-              </SheetTrigger>
-              <SheetContent>
-                <SheetHeader>
-                  <SheetTitle>Filter Agencies</SheetTitle>
-                  <SheetDescription>
-                    Apply filters to narrow down your search results.
-                  </SheetDescription>
-                </SheetHeader>
-                
-                <div className="py-6 space-y-6">
-                  <div className="space-y-2">
-                    <label className="text-sm font-medium">Category</label>
-                    <Select
-                      value={filters.category || 'all-categories'}
-                      onValueChange={(value) => 
-                        setFilters({ ...filters, category: value === 'all-categories' ? null : value as AgencyCategory })
-                      }
-                    >
-                      <SelectTrigger>
-                        <SelectValue placeholder="Select a category" />
-                      </SelectTrigger>
-                      <SelectContent>
-                        <SelectItem value="all-categories">All Categories</SelectItem>
-                        {CATEGORIES.map((category) => (
-                          <SelectItem key={category} value={category}>
-                            {category}
-                          </SelectItem>
-                        ))}
-                      </SelectContent>
-                    </Select>
-                  </div>
-                  
-                  <div className="space-y-2">
-                    <label className="text-sm font-medium">Country</label>
-                    <Select
-                      value={filters.country || 'all-countries'}
-                      onValueChange={(value) => 
-                        setFilters({ ...filters, country: value === 'all-countries' ? null : value })
-                      }
-                    >
-                      <SelectTrigger>
-                        <SelectValue placeholder="Select a country" />
-                      </SelectTrigger>
-                      <SelectContent>
-                        <SelectItem value="all-countries">All Countries</SelectItem>
-                        {COUNTRIES.map((country) => (
-                          <SelectItem key={country} value={country}>
-                            {country}
-                          </SelectItem>
-                        ))}
-                      </SelectContent>
-                    </Select>
-                  </div>
-                </div>
-                
-                <SheetFooter className="flex sm:justify-between gap-2">
-                  <Button 
-                    type="button" 
-                    variant="outline" 
-                    onClick={resetFilters}
-                  >
-                    Reset Filters
-                  </Button>
-                  <Button 
-                    type="button" 
-                    onClick={() => applyFilters(filters)}
-                  >
-                    Apply Filters
-                  </Button>
-                </SheetFooter>
-              </SheetContent>
-            </Sheet>
+            <AgencyFilterSheet 
+              filters={filters}
+              setFilters={setFilters}
+              applyFilters={applyFilters}
+              resetFilters={resetFilters}
+              categories={CATEGORIES}
+              countries={COUNTRIES}
+            />
           </div>
           
           {/* Active Filters */}
-          {filterChips().length > 0 && (
-            <div className="flex flex-wrap gap-2 items-center pt-1">
-              <span className="text-sm text-muted-foreground">Active filters:</span>
-              {filterChips().map((chip, index) => (
-                <div 
-                  key={index}
-                  className="bg-secondary text-secondary-foreground text-sm px-3 py-1 rounded-full flex items-center gap-1"
-                >
-                  {chip.label}
-                  <button 
-                    onClick={chip.onRemove}
-                    className="ml-1 rounded-full p-0.5 hover:bg-muted"
-                  >
-                    <X className="h-3 w-3" />
-                  </button>
-                </div>
-              ))}
-              {filterChips().length > 0 && (
-                <button 
-                  onClick={resetFilters}
-                  className="text-sm text-primary hover:text-primary/80 transition-colors"
-                >
-                  Clear all
-                </button>
-              )}
-            </div>
-          )}
+          <ActiveFilters 
+            filters={filters} 
+            resetFilters={resetFilters} 
+            applyFilters={applyFilters} 
+          />
         </div>
 
         {/* Agencies Grid */}
-        {loading ? (
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-            {[1, 2, 3, 4, 5, 6].map((_, index) => (
-              <div 
-                key={index} 
-                className="h-[300px] bg-muted/30 rounded-lg animate-pulse"
-              />
-            ))}
-          </div>
-        ) : filteredAgencies.length > 0 ? (
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-            {filteredAgencies.map((agency, index) => (
-              <AgencyCard 
-                key={agency.id} 
-                agency={agency} 
-                className="animate-fade-in opacity-0"
-                style={{ animationDelay: `${index * 100}ms`, animationFillMode: 'forwards' }}
-              />
-            ))}
-          </div>
-        ) : (
-          <div className="text-center py-12">
-            <div className="bg-muted/30 inline-flex items-center justify-center p-6 rounded-full mb-4">
-              <Filter className="h-10 w-10 text-muted-foreground" />
-            </div>
-            <h3 className="text-xl font-medium mb-2">No agencies found</h3>
-            <p className="text-muted-foreground max-w-md mx-auto mb-6">
-              No agencies match your current search criteria. Try adjusting your filters or search query.
-            </p>
-            <Button onClick={resetFilters} variant="outline">
-              Reset Filters
-            </Button>
-          </div>
-        )}
+        <AgencyList 
+          agencies={filteredAgencies}
+          loading={loading}
+          resetFilters={resetFilters}
+        />
       </div>
     </MainLayout>
   );
