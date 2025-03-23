@@ -1,3 +1,4 @@
+
 export interface Agency {
   id: string;
   name: string;
@@ -12,6 +13,10 @@ export interface Agency {
   zipCode?: string;
   country: string;
   category: string[];
+  subscriptionPlan: SubscriptionPlan;
+  subscriptionStatus: SubscriptionStatus;
+  subscriptionExpiry?: string;
+  propertyLimit: number;
   socialMedia: {
     facebook?: string;
     instagram?: string;
@@ -21,6 +26,10 @@ export interface Agency {
   createdAt: string;
   updatedAt: string;
 }
+
+export type SubscriptionPlan = 'Basic' | 'Standard' | 'Premium' | 'None';
+
+export type SubscriptionStatus = 'Active' | 'Expired' | 'Canceled' | 'Trial' | 'None';
 
 export interface AgencyFormData extends Omit<Agency, 'id' | 'createdAt' | 'updatedAt'> {}
 
@@ -93,4 +102,14 @@ export interface RegisterData {
   password: string;
   confirmPassword: string;
   role?: UserRole;
+}
+
+export interface SubscriptionPlanDetails {
+  id: SubscriptionPlan;
+  name: string;
+  price: number;
+  billingCycle: 'monthly' | 'yearly';
+  propertyLimit: number;
+  features: string[];
+  recommended?: boolean;
 }

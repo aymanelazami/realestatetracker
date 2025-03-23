@@ -1,3 +1,4 @@
+
 import React, { createContext, useContext, useState, useEffect } from 'react';
 import { User, UserRole, LoginCredentials, RegisterData } from '@/types';
 import { useToast } from '@/hooks/use-toast';
@@ -29,6 +30,13 @@ const MOCK_USERS = [
     name: 'Agency User',
     role: 'agency' as UserRole,
     agencyId: '1',
+    createdAt: new Date().toISOString(),
+  },
+  {
+    id: '3',
+    email: 'user@realestate.com',
+    name: 'Regular User',
+    role: 'visitor' as UserRole,
     createdAt: new Date().toISOString(),
   },
 ];
@@ -106,7 +114,7 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
         id: String(MOCK_USERS.length + 1),
         email: data.email,
         name: data.name,
-        role: data.role || 'agency',
+        role: data.role || 'visitor',
         createdAt: new Date().toISOString(),
       };
       
