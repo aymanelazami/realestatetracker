@@ -23,3 +23,24 @@ export const formSchema = z.object({
 });
 
 export type FormSchemaType = z.infer<typeof formSchema>;
+
+export function formatFormErrors(errors: Record<string, string[]>) {
+  return Object.entries(errors).map(([field, messages]) => ({
+    field,
+    message: messages.join(', ')
+  }));
+}
+
+export const getErrorsFromZodError = (result: z.ZodError) => {
+  const errors: Record<string, string[]> = {};
+  
+  result.errors.forEach((error) => {
+    const path = error.path.join('.');
+    if (!errors[path]) {
+      errors[path] = [];
+    }
+    errors[path].push(error.message);
+  });
+  
+  return errors;
+};

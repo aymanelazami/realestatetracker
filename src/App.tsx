@@ -1,4 +1,3 @@
-
 import { Toaster } from "@/components/ui/toaster";
 import { Toaster as Sonner } from "@/components/ui/sonner";
 import { TooltipProvider } from "@/components/ui/tooltip";
@@ -7,6 +6,7 @@ import { BrowserRouter, Routes, Route } from "react-router-dom";
 import { AuthProvider } from "@/contexts/AuthContext";
 import { ThemeProvider } from "@/contexts/ThemeContext";
 import ProtectedRoute from "@/components/auth/ProtectedRoute";
+import ErrorBoundary from "@/components/ui/error-boundary";
 
 // Pages
 import Index from "./pages/Index";
@@ -27,7 +27,14 @@ import Support from "./pages/Support";
 import Messages from "./pages/Messages";
 import AddProperty from "./pages/AddProperty";
 
-const queryClient = new QueryClient();
+const queryClient = new QueryClient({
+  defaultOptions: {
+    queries: {
+      retry: 1,
+      refetchOnWindowFocus: false,
+    },
+  },
+});
 
 const App = () => (
   <QueryClientProvider client={queryClient}>
@@ -36,114 +43,140 @@ const App = () => (
         <TooltipProvider>
           <Toaster />
           <Sonner />
-          <BrowserRouter>
-            <Routes>
-              <Route path="/" element={<Index />} />
-              <Route path="/login" element={<Login />} />
-              <Route path="/register" element={<Register />} />
-              <Route 
-                path="/dashboard" 
-                element={
-                  <ProtectedRoute>
-                    <Dashboard />
-                  </ProtectedRoute>
-                } 
-              />
-              <Route 
-                path="/agencies" 
-                element={
-                  <ProtectedRoute>
-                    <Agencies />
-                  </ProtectedRoute>
-                } 
-              />
-              <Route 
-                path="/agency/:id" 
-                element={
-                  <ProtectedRoute>
-                    <AgencyDetail />
-                  </ProtectedRoute>
-                } 
-              />
-              <Route 
-                path="/agency-profile" 
-                element={
-                  <ProtectedRoute allowedRoles={['agency']}>
-                    <AgencyProfile />
-                  </ProtectedRoute>
-                } 
-              />
-              <Route 
-                path="/add-agency" 
-                element={
-                  <ProtectedRoute allowedRoles={['admin', 'agency']}>
-                    <AddAgency />
-                  </ProtectedRoute>
-                } 
-              />
-              <Route 
-                path="/add-property" 
-                element={
-                  <ProtectedRoute allowedRoles={['admin', 'agency']}>
-                    <AddProperty />
-                  </ProtectedRoute>
-                } 
-              />
-              <Route 
-                path="/edit-agency/:id" 
-                element={
-                  <ProtectedRoute allowedRoles={['admin', 'agency']}>
-                    <EditAgency />
-                  </ProtectedRoute>
-                } 
-              />
-              <Route 
-                path="/profile" 
-                element={
-                  <ProtectedRoute>
-                    <Profile />
-                  </ProtectedRoute>
-                } 
-              />
-              <Route 
-                path="/settings" 
-                element={
-                  <ProtectedRoute>
-                    <Settings />
-                  </ProtectedRoute>
-                } 
-              />
-              <Route 
-                path="/support" 
-                element={<Support />} 
-              />
-              <Route 
-                path="/messages" 
-                element={
-                  <ProtectedRoute>
-                    <Messages />
-                  </ProtectedRoute>
-                } 
-              />
-              <Route 
-                path="/manage-categories" 
-                element={
-                  <ProtectedRoute allowedRoles={['admin']}>
-                    <ManageCategories />
-                  </ProtectedRoute>
-                } 
-              />
-              <Route 
-                path="/admin" 
-                element={
-                  <ProtectedRoute allowedRoles={['admin']}>
-                    <Admin />
-                  </ProtectedRoute>
-                } 
-              />
-              <Route path="*" element={<NotFound />} />
-            </Routes>
-          </BrowserRouter>
+          <ErrorBoundary>
+            <BrowserRouter>
+              <Routes>
+                <Route path="/" element={<Index />} />
+                <Route path="/login" element={<Login />} />
+                <Route path="/register" element={<Register />} />
+                <Route 
+                  path="/dashboard" 
+                  element={
+                    <ProtectedRoute>
+                      <ErrorBoundary>
+                        <Dashboard />
+                      </ErrorBoundary>
+                    </ProtectedRoute>
+                  } 
+                />
+                <Route 
+                  path="/agencies" 
+                  element={
+                    <ProtectedRoute>
+                      <ErrorBoundary>
+                        <Agencies />
+                      </ErrorBoundary>
+                    </ProtectedRoute>
+                  } 
+                />
+                <Route 
+                  path="/agency/:id" 
+                  element={
+                    <ProtectedRoute>
+                      <ErrorBoundary>
+                        <AgencyDetail />
+                      </ErrorBoundary>
+                    </ProtectedRoute>
+                  } 
+                />
+                <Route 
+                  path="/agency-profile" 
+                  element={
+                    <ProtectedRoute allowedRoles={['agency']}>
+                      <ErrorBoundary>
+                        <AgencyProfile />
+                      </ErrorBoundary>
+                    </ProtectedRoute>
+                  } 
+                />
+                <Route 
+                  path="/add-agency" 
+                  element={
+                    <ProtectedRoute allowedRoles={['admin', 'agency']}>
+                      <ErrorBoundary>
+                        <AddAgency />
+                      </ErrorBoundary>
+                    </ProtectedRoute>
+                  } 
+                />
+                <Route 
+                  path="/add-property" 
+                  element={
+                    <ProtectedRoute allowedRoles={['admin', 'agency']}>
+                      <ErrorBoundary>
+                        <AddProperty />
+                      </ErrorBoundary>
+                    </ProtectedRoute>
+                  } 
+                />
+                <Route 
+                  path="/edit-agency/:id" 
+                  element={
+                    <ProtectedRoute allowedRoles={['admin', 'agency']}>
+                      <ErrorBoundary>
+                        <EditAgency />
+                      </ErrorBoundary>
+                    </ProtectedRoute>
+                  } 
+                />
+                <Route 
+                  path="/profile" 
+                  element={
+                    <ProtectedRoute>
+                      <ErrorBoundary>
+                        <Profile />
+                      </ErrorBoundary>
+                    </ProtectedRoute>
+                  } 
+                />
+                <Route 
+                  path="/settings" 
+                  element={
+                    <ProtectedRoute>
+                      <ErrorBoundary>
+                        <Settings />
+                      </ErrorBoundary>
+                    </ProtectedRoute>
+                  } 
+                />
+                <Route 
+                  path="/support" 
+                  element={<Support />} 
+                />
+                <Route 
+                  path="/messages" 
+                  element={
+                    <ProtectedRoute>
+                      <ErrorBoundary>
+                        <Messages />
+                      </ErrorBoundary>
+                    </ProtectedRoute>
+                  } 
+                />
+                <Route 
+                  path="/manage-categories" 
+                  element={
+                    <ProtectedRoute allowedRoles={['admin']}>
+                      <ErrorBoundary>
+                        <ManageCategories />
+                      </ErrorBoundary>
+                    </ProtectedRoute>
+                  } 
+                />
+                <Route 
+                  path="/admin" 
+                  element={
+                    <ProtectedRoute allowedRoles={['admin']}>
+                      <ErrorBoundary>
+                        <Admin />
+                      </ErrorBoundary>
+                    </ProtectedRoute>
+                  } 
+                />
+                <Route path="*" element={<NotFound />} />
+              </Routes>
+            </BrowserRouter>
+          </ErrorBoundary>
         </TooltipProvider>
       </ThemeProvider>
     </AuthProvider>
