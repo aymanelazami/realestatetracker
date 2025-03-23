@@ -82,7 +82,7 @@ const PropertyForm: React.FC = () => {
       area: 0,
       bedrooms: 1,
       bathrooms: 1,
-      features: '',
+      features: [],
       address: '',
       city: '',
       state: '',
