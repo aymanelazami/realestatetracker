@@ -269,13 +269,14 @@ const PropertyForm: React.FC = () => {
               <FormField
                 control={form.control}
                 name="features"
-                render={({ field }) => (
+                render={({ field: { onChange, ...rest } }) => (
                   <FormItem>
                     <FormLabel>Features</FormLabel>
                     <FormControl>
                       <Input 
                         placeholder="e.g., Pool, Garage, Elevator, Balcony (comma separated)" 
-                        {...field} 
+                        onChange={(e) => onChange(e.target.value)}
+                        {...rest} 
                       />
                     </FormControl>
                     <FormDescription>
